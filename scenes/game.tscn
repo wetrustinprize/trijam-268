@@ -1,0 +1,62 @@
+[gd_scene load_steps=6 format=3 uid="uid://cxhgcuip3a3xg"]
+
+[ext_resource type="PackedScene" uid="uid://qk756sdi7lrc" path="res://actors/Cloud.tscn" id="1_oh4dd"]
+[ext_resource type="PackedScene" uid="uid://i88vd4iyfjrn" path="res://actors/Human.tscn" id="2_7p673"]
+[ext_resource type="Script" path="res://GameManager.gd" id="3_ninyn"]
+[ext_resource type="Script" path="res://GUI.gd" id="4_5riu0"]
+[ext_resource type="Texture2D" uid="uid://c6r674ku8nttn" path="res://sprites/game_map.png" id="5_m4i60"]
+
+[node name="Game" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+
+[node name="GameManager" type="Node" parent="."]
+script = ExtResource("3_ninyn")
+human_scene = ExtResource("2_7p673")
+
+[node name="Spawn Center" type="Node2D" parent="GameManager"]
+position = Vector2(986, 519)
+
+[node name="Humans" type="Node2D" parent="GameManager"]
+z_index = 1
+y_sort_enabled = true
+
+[node name="Cloud" parent="GameManager/Humans" instance=ExtResource("1_oh4dd")]
+
+[node name="GUI" type="CanvasLayer" parent="."]
+script = ExtResource("4_5riu0")
+
+[node name="Time" type="Label" parent="GUI"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -73.0
+offset_top = 10.0
+offset_right = 73.0
+offset_bottom = 112.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 74
+text = "0:00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Points" type="Label" parent="GUI"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -51.0
+offset_top = 106.0
+offset_right = 51.0
+offset_bottom = 151.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 32
+text = "0 points."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = -2
+texture = ExtResource("5_m4i60")
+offset = Vector2(960, 540)

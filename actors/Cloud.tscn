@@ -1,0 +1,108 @@
+[gd_scene load_steps=16 format=3 uid="uid://qk756sdi7lrc"]
+
+[ext_resource type="Texture2D" uid="uid://buaeo72ls8bf3" path="res://sprites/proto/proto_cloud.png" id="1_ie1tm"]
+[ext_resource type="Script" path="res://actors/Cloud.gd" id="1_v2c8c"]
+[ext_resource type="Texture2D" uid="uid://cu7v4e6i467cc" path="res://sprites/proto/proto_cloud_full.png" id="3_meyve"]
+[ext_resource type="Texture2D" uid="uid://c150vdoetm1if" path="res://sprites/proto/proto_cloud_raining.png" id="4_y7gy0"]
+[ext_resource type="Texture2D" uid="uid://cfr7vhfwacohb" path="res://sprites/clouds.png" id="5_7qqf3"]
+[ext_resource type="Texture2D" uid="uid://btfplpgi70dss" path="res://sprites/shadow.png" id="5_uoflg"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8r6rp"]
+atlas = ExtResource("5_7qqf3")
+region = Rect2(0, 307, 412, 307)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ikah7"]
+atlas = ExtResource("5_7qqf3")
+region = Rect2(0, 0, 412, 307)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g2w42"]
+atlas = ExtResource("5_7qqf3")
+region = Rect2(0, 614, 412, 307)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ue40y"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8r6rp")
+}],
+"loop": true,
+"name": &"closing",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ikah7")
+}],
+"loop": true,
+"name": &"moving",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g2w42")
+}],
+"loop": true,
+"name": &"raining",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_juacw"]
+radius = 22.9999
+height = 220.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_y6kio"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ksh1b"]
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(100, 1, 1)
+angle_min = 90.0
+angle_max = 90.0
+direction = Vector3(0, 0, 0)
+spread = 0.0
+gravity = Vector3(0, 230, 0)
+
+[sub_resource type="Gradient" id="Gradient_gll12"]
+colors = PackedColorArray(0, 1, 0, 0, 8.1341e-06, 0.916907, 0.117176, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_wbmn8"]
+gradient = SubResource("Gradient_gll12")
+width = 5
+
+[node name="Cloud" type="Node2D"]
+script = ExtResource("1_v2c8c")
+moving_texture = ExtResource("1_ie1tm")
+closing_texture = ExtResource("3_meyve")
+raining_texture = ExtResource("4_y7gy0")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 99
+z_as_relative = false
+position = Vector2(0, -400)
+sprite_frames = SubResource("SpriteFrames_ue40y")
+animation = &"moving"
+autoplay = "moving"
+
+[node name="Shadow" type="Sprite2D" parent="."]
+texture = ExtResource("5_uoflg")
+
+[node name="RainArea" type="Area2D" parent="."]
+rotation = 1.5708
+
+[node name="RainCollision" type="CollisionShape2D" parent="RainArea"]
+shape = SubResource("CapsuleShape2D_juacw")
+
+[node name="RainParticles" type="GPUParticles2D" parent="."]
+z_index = 1
+y_sort_enabled = true
+material = SubResource("CanvasItemMaterial_y6kio")
+position = Vector2(-10, -330)
+emitting = false
+amount = 1000
+process_material = SubResource("ParticleProcessMaterial_ksh1b")
+texture = SubResource("GradientTexture1D_wbmn8")
+lifetime = 1.65
+local_coords = true
+
+[connection signal="body_entered" from="RainArea" to="." method="_on_rain_area_body_entered"]
+[connection signal="body_exited" from="RainArea" to="." method="_on_rain_area_body_exited"]
