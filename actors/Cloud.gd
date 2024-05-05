@@ -12,6 +12,9 @@ enum CLOUD_STATE {MOVING, CLOSING, RAINING}
 @onready var raining_particles: GPUParticles2D = get_node("RainParticles")
 @onready var rain_area: Area2D = get_node("RainArea")
 
+@onready var thunder_sfx: AudioStreamPlayer2D = get_node("Thunder")
+@onready var rain_sfx: AudioStreamPlayer2D = get_node("Rain")
+
 signal state_change(new_state)
 
 var state = CLOUD_STATE.MOVING;
@@ -36,13 +39,17 @@ func change_state(new_state):
 	match new_state:
 		CLOUD_STATE.CLOSING:
 			animated_sprite.play("closing")
-			raining_particles.emitting = false;
+			raining_particles.emitting = false
+			thunder_sfx.play()
+			rain_sfx.stop()
 		CLOUD_STATE.MOVING:
 			animated_sprite.play("moving")
-			raining_particles.emitting = false;
+			raining_particles.emitting = false
+			rain_sfx.stop()
 		CLOUD_STATE.RAINING:
 			animated_sprite.play("raining")
-			raining_particles.emitting = true;
+			raining_particles.emitting = true
+			rain_sfx.play()
 
 			for body in rain_area.get_overlapping_bodies():
 				check_human(body)

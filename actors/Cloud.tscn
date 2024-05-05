@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://qk756sdi7lrc"]
+[gd_scene load_steps=18 format=3 uid="uid://qk756sdi7lrc"]
 
 [ext_resource type="Texture2D" uid="uid://buaeo72ls8bf3" path="res://sprites/proto/proto_cloud.png" id="1_ie1tm"]
 [ext_resource type="Script" path="res://actors/Cloud.gd" id="1_v2c8c"]
@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://c150vdoetm1if" path="res://sprites/proto/proto_cloud_raining.png" id="4_y7gy0"]
 [ext_resource type="Texture2D" uid="uid://cfr7vhfwacohb" path="res://sprites/clouds.png" id="5_7qqf3"]
 [ext_resource type="Texture2D" uid="uid://btfplpgi70dss" path="res://sprites/shadow.png" id="5_uoflg"]
+[ext_resource type="AudioStream" uid="uid://ckuckawe5ud75" path="res://sounds/thunder.wav" id="7_bgyox"]
+[ext_resource type="AudioStream" uid="uid://yt8y34h8c6kh" path="res://sounds/rain_loop.wav" id="7_roxpf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8r6rp"]
 atlas = ExtResource("5_7qqf3")
@@ -103,6 +105,13 @@ process_material = SubResource("ParticleProcessMaterial_ksh1b")
 texture = SubResource("GradientTexture1D_wbmn8")
 lifetime = 1.65
 local_coords = true
+
+[node name="Rain" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_roxpf")
+volume_db = 10.0
+
+[node name="Thunder" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_bgyox")
 
 [connection signal="body_entered" from="RainArea" to="." method="_on_rain_area_body_entered"]
 [connection signal="body_exited" from="RainArea" to="." method="_on_rain_area_body_exited"]

@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://cxhgcuip3a3xg"]
+[gd_scene load_steps=7 format=3 uid="uid://cxhgcuip3a3xg"]
 
 [ext_resource type="PackedScene" uid="uid://qk756sdi7lrc" path="res://actors/Cloud.tscn" id="1_oh4dd"]
 [ext_resource type="PackedScene" uid="uid://i88vd4iyfjrn" path="res://actors/Human.tscn" id="2_7p673"]
 [ext_resource type="Script" path="res://GameManager.gd" id="3_ninyn"]
 [ext_resource type="Script" path="res://GUI.gd" id="4_5riu0"]
 [ext_resource type="Texture2D" uid="uid://c6r674ku8nttn" path="res://sprites/game_map.png" id="5_m4i60"]
+[ext_resource type="AudioStream" uid="uid://6l03w07fjey" path="res://sounds/crowd_loop.wav" id="6_jsmp2"]
 
 [node name="Game" type="Node2D"]
 
@@ -60,3 +61,7 @@ vertical_alignment = 1
 z_index = -2
 texture = ExtResource("5_m4i60")
 offset = Vector2(960, 540)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_jsmp2")
+autoplay = true
