@@ -30,7 +30,7 @@ func _ready():
 
 	currentHealth = health;
 
-	go_to = GameManager.Instance.get_random_point_from_spawn()
+	go_to = GameManager.Instance.get_random_point_from_spawn(min_radius, max_radius)
 
 	Cloud.Instance.state_change.connect(cloud_change_state)
 	flee_timer.timeout.connect(enable_flee)
@@ -73,7 +73,7 @@ func _physics_process(delta):
 	if not fleeing:
 		var dist = position.distance_to(go_to)
 		if dist <= distance_threshold:
-			go_to = GameManager.Instance.get_random_point_from_spawn()
+			go_to = GameManager.Instance.get_random_point_from_spawn(min_radius, max_radius)
 
 	var dir = position.direction_to(go_to if not fleeing else get_flee_position())
 
