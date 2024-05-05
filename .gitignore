@@ -2,4 +2,4 @@
 .godot/
 
 # Build files
-.build/
+build/
