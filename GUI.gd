@@ -3,9 +3,6 @@ extends CanvasLayer
 @onready var timer_label: Label = get_node("Time")
 @onready var points_label: Label = get_node("Points")
 
-func _ready():
-	GameManager.Instance.human_died.connect(human_died)
-
 func _process(delta):
 	var game_seconds = GameManager.Instance.time
 
@@ -16,6 +13,5 @@ func _process(delta):
 		timer_label.text = str(minutes) + ":" + str(seconds)
 	else:
 		timer_label.text = str(minutes) + ":0" + str(seconds)
-
-func human_died():
+	
 	points_label.text = str(GameManager.Instance.score) + " points."
