@@ -9,7 +9,7 @@ class_name Human extends CharacterBody2D
 @onready var acid_sfx: AudioStreamPlayer2D = get_node("Burn")
 
 var min_radius: float = 100
-var max_radius: float = 300
+var max_radius: float = 1200
 
 var go_to: Vector2 = Vector2.ZERO
 
@@ -32,8 +32,12 @@ func _ready():
 
 	go_to = GameManager.Instance.get_random_point_from_spawn(min_radius, max_radius)
 
+	GameManager.Instance.game_over.connect(on_game_over)
 	Cloud.Instance.state_change.connect(cloud_change_state)
 	flee_timer.timeout.connect(enable_flee)
+
+func on_game_over():
+	queue_free()
 
 func cloud_change_state(new_state):
 	match new_state:

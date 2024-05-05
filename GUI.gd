@@ -18,4 +18,4 @@ func _process(delta):
 		timer_label.text = str(minutes) + ":0" + str(seconds)
 
 func human_died():
-	points_label.text = str(GameManager.Instance.points) + " points."
+	points_label.text = str(GameManager.Instance.score) + " points."

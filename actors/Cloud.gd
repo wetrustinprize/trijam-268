@@ -19,8 +19,11 @@ signal state_change(new_state)
 
 var state = CLOUD_STATE.MOVING;
 
-func _ready():
+func _init():
 	Instance = self
+
+func _ready():
+	GameManager.Instance.game_over.connect(on_game_over)
 
 func _input(event):
 	if event is InputEventMouseButton:
@@ -34,6 +37,9 @@ func _input(event):
 
 	if event is InputEventMouseMotion:
 		position = event.position
+
+func on_game_over():
+	queue_free()
 
 func change_state(new_state):
 	match new_state:

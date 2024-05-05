@@ -5,12 +5,17 @@ static var Instance: GameManager
 @onready var spawn_center: Node2D = get_node("Spawn Center")
 @onready var humans_node: Node = get_node("Humans")
 
+@onready var gui_canvas: CanvasLayer = get_node("GUI")
+@onready var end_game_canvas: CanvasLayer = get_node("EndGameGUI")
+
 @export var human_scene: PackedScene
+
+var player_data: PlayerData
 
 signal human_died
 signal game_over
 
-var points: int = 0;
+var score: int = 0;
 
 var initial_spawn_min_radius: float = 300
 var initial_spawn_max_radius: float = 800
@@ -24,9 +29,10 @@ var is_game_over: bool = false
 
 var time: float = 2 * 60
 
-func _ready():
+func _init():
 	Instance = self
 
+func _ready():
 	human_died.connect(add_score)
 	human_died.connect(create_new_humans)
 
@@ -37,6 +43,11 @@ func _ready():
 		humans_node.add_child(instance)
 		humans.append(instance)
 
+	player_data = load("user://player_data.tres")
+
+	if player_data == null:
+		player_data = PlayerData.new()
+
 func _process(delta):
 	if is_game_over: return
 
@@ -45,15 +56,18 @@ func _process(delta):
 	if time <= 0:
 		is_game_over = true
 		game_over.emit()
+		on_game_over()
 
-		Cloud.Instance.queue_free()
+func on_game_over():
+	gui_canvas.hide()
+	end_game_canvas.show()
 
-		for human in humans:
-			if human == TYPE_NIL: return
-			human.queue_free()
+	if score > player_data.best_score:
+		player_data.best_score = score
+		ResourceSaver.save(player_data, "user://player_data.tres")
 
 func add_score():
-	points += 5;
+	score += 5;
 
 func create_new_humans():
 	for i in range(5):
