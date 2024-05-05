@@ -1,0 +1,120 @@
+[gd_scene load_steps=11 format=3 uid="uid://btt2xswq61b38"]
+
+[ext_resource type="Texture2D" uid="uid://dpdmqpisqcoha" path="res://sprites/ui/main_menu_background.png" id="1_dvdkq"]
+[ext_resource type="Script" path="res://scenes/main_menu.gd" id="1_kixet"]
+[ext_resource type="Texture2D" uid="uid://cqb50qwod6yev" path="res://sprites/ui/button_play.png" id="2_cuict"]
+[ext_resource type="Texture2D" uid="uid://dff1runec48m7" path="res://sprites/ui/button_mouse.png" id="3_nu5lu"]
+[ext_resource type="Texture2D" uid="uid://6np17d02a2p8" path="res://sprites/ui/button_info.png" id="4_raef6"]
+[ext_resource type="Texture2D" uid="uid://d0el6dhc5mulb" path="res://sprites/ui/button_credits.png" id="5_cwoea"]
+[ext_resource type="Texture2D" uid="uid://mhutby4u10vt" path="res://sprites/ui/button_quit.png" id="6_aas44"]
+[ext_resource type="Texture2D" uid="uid://nmarotsglcob" path="res://sprites/ui/controls_background.png" id="7_rhw1d"]
+[ext_resource type="Texture2D" uid="uid://cbafw0kr2job1" path="res://sprites/ui/context_background.png" id="8_peqsu"]
+[ext_resource type="Texture2D" uid="uid://tir2vf5lyfwn" path="res://sprites/ui/credits_background.png" id="9_afst3"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_kixet")
+
+[node name="Background" type="Sprite2D" parent="."]
+texture = ExtResource("1_dvdkq")
+centered = false
+
+[node name="PlayButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 825.0
+offset_top = 356.0
+offset_right = 1060.0
+offset_bottom = 590.0
+icon = ExtResource("2_cuict")
+flat = true
+icon_alignment = 1
+
+[node name="ControlsButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 998.0
+offset_top = 553.0
+offset_right = 1178.0
+offset_bottom = 733.0
+icon = ExtResource("3_nu5lu")
+flat = true
+icon_alignment = 1
+
+[node name="InfoButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 912.0
+offset_top = 725.0
+offset_right = 996.0
+offset_bottom = 809.0
+icon = ExtResource("4_raef6")
+flat = true
+icon_alignment = 1
+
+[node name="CreditsButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1012.0
+offset_top = 748.0
+offset_right = 1174.0
+offset_bottom = 910.0
+icon = ExtResource("5_cwoea")
+flat = true
+icon_alignment = 1
+
+[node name="QuitButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 1098.0
+offset_top = 913.0
+offset_right = 1240.0
+offset_bottom = 1031.0
+icon = ExtResource("6_aas44")
+flat = true
+icon_alignment = 1
+
+[node name="ControlsPage" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("7_rhw1d")
+centered = false
+
+[node name="ReturnButton" type="Button" parent="ControlsPage"]
+offset_left = 1520.0
+offset_top = 896.0
+offset_right = 1814.0
+offset_bottom = 999.0
+flat = true
+
+[node name="ContextPage" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("8_peqsu")
+centered = false
+
+[node name="ReturnButton" type="Button" parent="ContextPage"]
+offset_left = 1535.0
+offset_top = 900.0
+offset_right = 1829.0
+offset_bottom = 1003.0
+flat = true
+
+[node name="CreditsPage" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("9_afst3")
+centered = false
+
+[node name="ReturnButton" type="Button" parent="CreditsPage"]
+offset_left = 1535.0
+offset_top = 900.0
+offset_right = 1829.0
+offset_bottom = 1003.0
+flat = true
+
+[connection signal="pressed" from="PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="ControlsButton" to="." method="_on_controls_button_pressed"]
+[connection signal="pressed" from="InfoButton" to="." method="_on_info_button_pressed"]
+[connection signal="pressed" from="CreditsButton" to="." method="_on_credits_button_pressed"]
+[connection signal="pressed" from="QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="ControlsPage/ReturnButton" to="." method="_on_return_button_pressed"]
+[connection signal="pressed" from="ContextPage/ReturnButton" to="." method="_on_return_button_pressed"]
+[connection signal="pressed" from="CreditsPage/ReturnButton" to="." method="_on_return_button_pressed"]
