@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://i88vd4iyfjrn"]
+[gd_scene load_steps=14 format=3 uid="uid://i88vd4iyfjrn"]
 
 [ext_resource type="Script" path="res://actors/Human.gd" id="1_ga8jb"]
 [ext_resource type="SpriteFrames" uid="uid://d34b4kxdhmpau" path="res://animations/humans/human_b1.tres" id="2_50i4e"]
@@ -9,9 +9,10 @@
 [ext_resource type="SpriteFrames" uid="uid://c88fe341ipwp7" path="res://animations/humans/human_w1.tres" id="6_8xtyl"]
 [ext_resource type="SpriteFrames" uid="uid://dnbpfj82q24u7" path="res://animations/humans/human_w2.tres" id="7_20y2a"]
 [ext_resource type="SpriteFrames" uid="uid://lvpuy63moh0r" path="res://animations/humans/human_w3.tres" id="8_kqd3d"]
+[ext_resource type="AudioStream" uid="uid://dd0tjmy8e6kyh" path="res://sounds/acid_burn.wav" id="10_fiw6a"]
 
 [sub_resource type="Gradient" id="Gradient_awope"]
-offsets = PackedFloat32Array(0.0114943, 0.0517241, 0.37931)
+offsets = PackedFloat32Array(0.0114943, 0.0517241, 1)
 colors = PackedColorArray(0, 0, 0, 1, 0.347244, 1, 0.386473, 1, 1, 1, 1, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_amlit"]
@@ -39,3 +40,8 @@ animation = &"side"
 [node name="FleeTimer" type="Timer" parent="."]
 wait_time = 3.4
 one_shot = true
+
+[node name="Burn" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_fiw6a")
+
+[connection signal="finished" from="Burn" to="." method="_on_burn_finished"]
