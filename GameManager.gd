@@ -47,6 +47,7 @@ func _process(delta):
 		Cloud.Instance.queue_free()
 
 		for human in humans:
+			if human == TYPE_NIL: return
 			human.queue_free()
 
 func add_score():
