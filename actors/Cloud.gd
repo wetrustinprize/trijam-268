@@ -8,7 +8,7 @@ enum CLOUD_STATE {MOVING, CLOSING, RAINING}
 @export var closing_texture: Texture2D
 @export var raining_texture: Texture2D
 
-@onready var animated_sprite: AnimatedSprite2D = get_node("AnimatedSprite2D")
+@onready var cloud_sprite: AnimatedSprite2D = get_node("Cloud")
 @onready var raining_particles: GPUParticles2D = get_node("RainParticles")
 @onready var rain_area: Area2D = get_node("RainArea")
 
@@ -25,6 +25,9 @@ func _init():
 func _ready():
 	GameManager.Instance.game_over.connect(on_game_over)
 
+func _process(delta):
+	position = position.lerp(get_global_mouse_position(), 10 * delta)
+
 func _input(event):
 	if event is InputEventMouseButton:
 		if !event.pressed:
@@ -35,25 +38,22 @@ func _input(event):
 		if event.button_index == 2:
 			change_state(CLOUD_STATE.CLOSING if state == CLOUD_STATE.MOVING or state == CLOUD_STATE.RAINING else CLOUD_STATE.RAINING)
 
-	if event is InputEventMouseMotion:
-		position = event.position
-
 func on_game_over():
 	queue_free()
 
 func change_state(new_state):
 	match new_state:
 		CLOUD_STATE.CLOSING:
-			animated_sprite.play("closing")
+			cloud_sprite.play("closing")
 			raining_particles.emitting = false
 			thunder_sfx.play()
 			rain_sfx.stop()
 		CLOUD_STATE.MOVING:
-			animated_sprite.play("moving")
+			cloud_sprite.play("moving")
 			raining_particles.emitting = false
 			rain_sfx.stop()
 		CLOUD_STATE.RAINING:
-			animated_sprite.play("raining")
+			cloud_sprite.play("raining")
 			raining_particles.emitting = true
 			rain_sfx.play()
 

@@ -77,7 +77,7 @@ moving_texture = ExtResource("1_ie1tm")
 closing_texture = ExtResource("3_meyve")
 raining_texture = ExtResource("4_y7gy0")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="Cloud" type="AnimatedSprite2D" parent="."]
 z_index = 99
 z_as_relative = false
 position = Vector2(0, -400)
