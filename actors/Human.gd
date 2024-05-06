@@ -16,7 +16,7 @@ var go_to: Vector2 = Vector2.ZERO
 var speed: float = 60
 var flee_speed: float = 100
 var distance_threshold: float = 10
-var health: float = 3
+var health: float = 1.5
 
 var on_rain: bool = false;
 var dead: bool = false;
