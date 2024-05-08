@@ -33,7 +33,9 @@ func _input(event):
 		if !event.pressed:
 			return
 
-		if event.button_index == 1:
+		print(event.button_index)
+
+		if event.button_index == 5||event.button_index == 4:
 			change_state(CLOUD_STATE.MOVING if state == CLOUD_STATE.CLOSING else CLOUD_STATE.CLOSING)
 		if event.button_index == 2:
 			change_state(CLOUD_STATE.CLOSING if state == CLOUD_STATE.MOVING or state == CLOUD_STATE.RAINING else CLOUD_STATE.RAINING)
